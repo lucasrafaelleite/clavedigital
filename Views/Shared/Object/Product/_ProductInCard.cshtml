@@ -39,22 +39,7 @@
             }
         }
 
-        @{
-            bool isb2b = Session["segment"] != null && Session["segment"].ToString() == "b2b" ? true : false;
-
-            DomainAssistedSale.Entities.Seller _assistedSale = (DomainAssistedSale.Entities.Seller)Session["Seller"];
-            bool isAssistedSale = _assistedSale != null ? true : false;
-
-
-            if (!Model.HasConjunct && !isb2b && !isAssistedSale)
-            {
-                <div class="ui top right attached label massive wishlist">
-                    <div class="bcg-heart wishlist-btn" data-wishlist-local="card" data-tooltip="@textListaDesejo" data-position="top right">
-                        <i class="wishlist-item icon heart @color" data-in-list="@inlist" data-have-sku="@(Model.AvailableReferences != null && Model.AvailableReferences.Count() > 0 ? "true" : "false")" data-product-id="@Model.IdProduct"></i>
-                    </div>
-                </div>
-            }
-        }
+        
         @if (Model.AlternativeImage != null)
         {
             <a class="ui slide masked reveal image fluid" itemprop="url" href="@(Model.UrlFriendlyCustom != null ? Model.UrlFriendlyCustom : Model.UrlFriendly)" title="@Model.Name">
@@ -81,9 +66,9 @@
                 }
             </a>
         }
-        <div class="ui horizontal divider avaliacao">
+        <!--<div class="ui horizontal divider avaliacao">
             <div class="ui tiny star rating" data-rating="@Model.Rate.Value.ToString().Replace(",", ".")"></div>
-        </div>
+        </div>-->
 
         <div class="info">
 
@@ -184,7 +169,7 @@
                     <meta itemprop="priceCurrency" content="BRL" />
                     @if (Model.PricePromotion != null && Model.PricePromotion > 0)
                     {
-                        <span id="basePrice_@Model.IdProduct" class="precoBase">de <i>@string.Format("{0:c}", Model.Price)</i> por @(Session["segment"] != null && Session["segment"].ToString() == "b2b" && Model.AvailableReferences != null ? "a partir de" : string.Empty)</span>
+                        <span id="basePrice_@Model.IdProduct" class="precoBase"><i>@string.Format("{0:c}", Model.Price)</i> @(Session["segment"] != null && Session["segment"].ToString() == "b2b" && Model.AvailableReferences != null ? "a partir de" : string.Empty)</span>
                         <span class="preco">R$ <span>@string.Format("{0:n2}", Model.PricePromotion)</span></span>
                         <meta itemprop="price" content="@string.Format("{0:n2}", Model.PricePromotion).Replace(".", "").Replace(",", ".")" />
                     }
@@ -198,17 +183,18 @@
                         </span>
                         <meta itemprop="price" content="@string.Format("{0:n2}", Model.Price).Replace(".", "").Replace(",", ".")" />
                     }
-                    @if (Model.InstallmentMax != null)
+                    <!--
+					@if (Model.InstallmentMax != null)
                     {
                         <span class="parcelamento">
                             ou em <span class="installmentMaxNumber">@Model.InstallmentMax.MaxNumber</span>
                             x de <span class="installmentMaxValue">@string.Format("{0:c}", Model.InstallmentMax.Value)</span>
                         </span>
                     }
+					-->
 
                     @if (Model.Stock >= 0 && !Model.FlagExhausted)
                     {
-                        <br /><br />
                         <span class="text color grey regular parcelamento small">
                             @Model.DescriptionAvailabilityStatus
                         </span>
@@ -225,41 +211,34 @@
 
                 </div>
             </div>
-            <div class="botoes centered">
-                <!-- Verificar se o produto é conjunto -->
-                @if (Model.HasConjunct)
-                {
-                    <a href="@(Model.UrlFriendlyCustom != null ? Model.UrlFriendlyCustom : Model.UrlFriendly)" title="Comprar" class="ui labeled icon button action fluid text uppercase btnComprar" data-idproduct="@Model.IdProduct" data-name="Model.Name">
-                        <i id="btn-icon-card-Model.IdProduct" class="icon announcement"></i>
-                        Comprar
-                    </a>
-                }
-                else if (Model.FlagExhausted || Model.Stock <= 0)
-                {
-                    <a id="btn-comprar-card-@Model.IdProduct" title="Avise-me" class="ui labeled icon button grey fluid avise-card avise-me-modal text uppercase btnComprar" data-idproduct="@Model.IdProduct" data-name="@Model.Name">
-                        <i id="btn-icon-card-@Model.IdProduct" class="icon announcement"></i>
-                        Avise-me
-                    </a>
-                }
-                else if (Session["EventList"] != null)
-                {
-                    <a href="@(Model.UrlFriendlyCustom != null ? Model.UrlFriendlyCustom : Model.UrlFriendly)" id="add-event-list-@Model.IdProduct" title="Adicionar à Lista" class="ui labeled icon button primary fluid text uppercase btnComprar" data-idproduct="@Model.IdProduct" data-name="@Model.Name">
-                        <i id="btn-icon-card-@Model.IdProduct" class="icon add to cart"></i>
-                        Adicionar à Lista
-                    </a>
-                }
-                else
-                {
-                    <a href="@(Model.UrlFriendlyCustom != null ? Model.UrlFriendlyCustom : Model.UrlFriendly)" id="btn-comprar-card-@Model.IdProduct" title="Comprar" class="ui labeled icon button action fluid text uppercase btnComprar" data-idproduct="@Model.IdProduct" data-name="@Model.Name">
-                        <i id="btn-icon-card-@Model.IdProduct" class="icon add to cart"></i>
-                        Comprar
-                    </a>
-                }
+            <!--<div class="botoes centered">              
 
                 <a class="ui button btnDetalhes mobile-hide tablet-hide" href="@(Model.UrlFriendlyCustom != null ? Model.UrlFriendlyCustom : Model.UrlFriendly)">
                     <i class="icon search"></i>Detalhes
                 </a>
-            </div>
+            </div>-->
         </div>
+		
+		<div class="posicaoNovaBotoes">		
+
+			<a href="@(Model.UrlFriendlyCustom != null ? Model.UrlFriendlyCustom : Model.UrlFriendly)" id="btn-comprar-card-@Model.IdProduct" title="Comprar" class="btnComprar" data-idproduct="@Model.IdProduct" data-name="@Model.Name">
+				<i id="btn-icon-card-@Model.IdProduct" class="icon add to cart"></i>
+			</a>
+			
+			@{
+				bool isb2b = Session["segment"] != null && Session["segment"].ToString() == "b2b" ? true : false;
+
+				DomainAssistedSale.Entities.Seller _assistedSale = (DomainAssistedSale.Entities.Seller)Session["Seller"];
+				bool isAssistedSale = _assistedSale != null ? true : false;
+
+
+				if (!Model.HasConjunct && !isb2b && !isAssistedSale)
+				{
+					<div class="bcg-heart wishlist-btn">
+						<i class="wishlist-item icon heart @color" data-in-list="@inlist" data-have-sku="@(Model.AvailableReferences != null && Model.AvailableReferences.Count() > 0 ? "true" : "false")" data-product-id="@Model.IdProduct"></i>
+					</div>
+				}
+			}
+		</div>
     </div>
 </div>

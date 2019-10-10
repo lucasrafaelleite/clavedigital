@@ -345,10 +345,14 @@ variations = {
             nextArrow: '<a class="slick-next ui mini button basic black icon"><i class="chevron right icon"></i></a>',
             dots: false,
             slidesToShow: 3,
+			slidesToScroll: 3,
             mobileFirst:true,
             useTransform:false,
-            infinite:false
+            infinite:false,
+			vertical: true,
+			verticalSwiping: true,
         });
+	
     },
     //formatando numeros em moeda
     moneyBR: function(money) {

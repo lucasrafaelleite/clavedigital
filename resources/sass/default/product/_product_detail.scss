@@ -260,6 +260,14 @@ h6.codProduto {
     }
 }
 
+.descricaoBreveClave {
+	display: table;
+    margin-top: 20px;
+    border: 1px #dedede solid;
+    width: 100%;
+    padding: 15px;
+}
+
 .produto {
 
     &.detalhes {

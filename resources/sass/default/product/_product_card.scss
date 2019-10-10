@@ -10,7 +10,6 @@
       background-color: white;
       height: auto;
       position: relative;
-      text-align: center;
       transition-duration: 0.3s;
       z-index: 4;
 
@@ -26,12 +25,16 @@
           color: $black;
           font-size: 14px;
           margin-bottom: 10px;
+		  padding-bottom:15px; 
+		  border-bottom:1px #dedede solid;
+		  text-transform:uppercase;
+		  text-align:center;
         }
 
         .precoBase {
           color: #666666;
           font-size: 14px;
-
+		  margin-right:5px;
           i {
             text-decoration: line-through;
           }
@@ -54,12 +57,12 @@
           font-size: 14px;
         }
       }
-
+	  
       .botoes {
         border-top: 0 !important;
         bottom: -40px;
         left: 0;
-        opacity: 0;
+        opacity: 1;
         position: absolute;
         transition-duration: 0.3s;
         width: 100%;
@@ -143,34 +146,7 @@
   &:hover,
   &:focus {
     box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5 !important;
-
-    .content {
-
-      .ui.slide.masked.reveal.image > .visible.content {
-        transform: translateX(-100%) !important;
-      }
-
-      .ui.slide.masked.reveal.image > .hidden.content {
-        transform: translateX(0) !important;
-      }
-    }
-
-    .info {
-
-      @media screen and (min-width: $desktop-bp-min) {
-        transform: translateY(-40px);
-      }
-
-
-      .botoes {
-        opacity: 1;
-      }
-
-      .sku-options {
-        opacity: 1;
-      }
-    }
-  }
+	}
 
   .wishlist {
 
@@ -217,4 +193,48 @@
     margin-left: 1em;
     margin-right: 1em;
   }
+}
+
+
+.posicaoNovaBotoes {
+	position: absolute;
+    top: 30%;
+    z-index: 99;
+    left: 50%;
+    display: table;
+    margin-left:-60px;
+	display:none;
+}
+
+.card.produto:hover .posicaoNovaBotoes {
+	display:block;
+}
+
+
+.posicaoNovaBotoes .btnComprar,
+.posicaoNovaBotoes .wishlist-btn {
+    display: table;
+    float: left;
+    padding: 15px;
+    background:#ffffffb8;
+    border-radius: 5px;
+    font-size: 18px;
+	margin:2px;
+	cursor:pointer;
+}
+
+.posicaoNovaBotoes .btnComprar:hover,
+.posicaoNovaBotoes .wishlist-btn:hover {
+    background:#d46da2;
+}
+
+.posicaoNovaBotoes .btnComprar i,
+.posicaoNovaBotoes .wishlist-btn i {
+	color: #1ab5ac !important;
+	margin:0;
+}
+
+.posicaoNovaBotoes .btnComprar:hover i ,
+.posicaoNovaBotoes .wishlist-btn:hover i {
+    color:#fff !important;
 }

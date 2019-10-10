@@ -57,9 +57,13 @@
 
   .slick-prev,
   .slick-next {
-    position: absolute;
+    /*position: absolute;
     z-index: 9;
-    bottom: -30px;
+    bottom: -30px;*/
+	
+	display: table;
+    margin:10px auto;
+    transform: rotate(90deg);
 
     &:hover,
     &:focus {
